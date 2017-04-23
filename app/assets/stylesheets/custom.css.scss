@@ -1,3 +1,8 @@
 .results-block {
   display: inline-block;
 }
+
+.sidebar-nav li a:hover {
+  background-color: #333;
+  border-radius: 10px;
+}

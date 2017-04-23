@@ -20,7 +20,6 @@
       <td><%= user_stock.price %></td>
       <% if @user.id == current_user.id %>
       <td><%= link_to "Remove",  user_stock_path(user_stock), :method => :delete, :data => {:confirm => "Are you sure you want to remove #{user_stock.ticker} from the watchlist?"}, :class => "btn btn-xs btn-danger" %></td>
-      
       <% end %>
     </tr>
     <% stocks_count+=1 %>
