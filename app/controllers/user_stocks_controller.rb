@@ -1,5 +1,5 @@
 class UserStocksController < ApplicationController
-  before_action :set_user_stock, only: [:show, :edit, :update]
+  before_action :set_user_stock, only: [:show, :edit, :update, :destroy]
 
   # GET /user_stocks
   # GET /user_stocks.json
@@ -43,7 +43,7 @@ class UserStocksController < ApplicationController
     
     respond_to do |format|
       if @user_stock.save
-        format.html { redirect_to my_portfolio_path, notice: "#{@user_stock.stock.ticker} stock was successfully added to your watchlist." }
+        format.html { redirect_to my_portfolio_path, notice: "Stock #{@user_stock.stock.ticker} was successfully added" }
         format.json { render :show, status: :created, location: @user_stock }
       else
         format.html { render :new }
@@ -69,12 +69,10 @@ class UserStocksController < ApplicationController
   # DELETE /user_stocks/1
   # DELETE /user_stocks/1.json
   def destroy
-    @user_stock = UserStock.where(stock_id: params[:id], user: current_user).first
-    sname = Stock.find(@user_stock.stock_id).name
-    sticker = Stock.find(@user_stock.stock_id).ticker
+    sticker = @user_stock.stock.ticker
     @user_stock.destroy
     respond_to do |format|
-      format.html { redirect_to my_portfolio_path, notice: "#{sname} (#{sticker}) stock was successfully removed from your watchlist." }
+      format.html { redirect_to my_portfolio_path, notice: "Stock #{sticker} was successfully removed from your watchlist." }
       format.json { head :no_content }
     end
   end

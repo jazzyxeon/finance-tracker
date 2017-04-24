@@ -2,10 +2,12 @@ class Stock < ActiveRecord::Base
   has_many :user_stocks
   has_many :users, through: :user_stocks
   
+  #Look up a stock from our Stocks Database
   def self.find_by_ticker(ticker_symbol)
     where(ticker: ticker_symbol).first
   end
   
+  #Look up a stock from the Stock Quote Yahoo API
   def self.new_from_lookup(ticker_symbol)
     looked_up_stock = StockQuote::Stock.quote(ticker_symbol)
     return nil unless looked_up_stock.name
